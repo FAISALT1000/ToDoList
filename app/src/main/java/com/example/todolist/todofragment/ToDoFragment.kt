@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.RadioButton
+import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.DatePickerDialogFragment
 import com.example.todolist.R
 import com.example.todolist.database.ToDo
 import com.example.todolist.todolistfragment.KEY_ID
+import java.time.DayOfWeek
+import java.time.Month
+import java.time.Year
 import java.util.*
 
 const val DO_DAY_KEY="DO date"
@@ -35,8 +35,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
     private lateinit var isDone: RadioButton
     private lateinit var startDateBtn: Button
     private lateinit var detailsET:EditText
-    private lateinit var chooseSuspectBtn:Button
-    private lateinit var sendReportBtn:Button
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -69,7 +68,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
                     fragmentViewModel.loadToDo(taskId)
                     task.id=taskId
                     fragmentViewModel.saveUpdate(task)
-                    chooseSuspectBtn.text=suspect
+                    //chooseSuspectBtn.text=suspect
 
                 }
             }
@@ -132,14 +131,34 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
                 task.title=p0.toString()
             }
 
+
             override fun afterTextChanged(p0: Editable?) {
                 //I will not used it today
             }
 
         }
+        val textWatcher1=object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //I will not used it today
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                Log.d("AAA",p0.toString())
+                task.details=p0.toString()
+            }
+
+
+            override fun afterTextChanged(p0: Editable?) {
+                //I will not used it today
+            }
+
+        }
+
         titleEditText.addTextChangedListener(textWatcher)
+        detailsET.addTextChangedListener(textWatcher1)
         isDone.setOnCheckedChangeListener{_,b->
             task.isdidit=b
+
         }
     }
 
@@ -165,6 +184,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
                 it?.let {
                     task=it
                     titleEditText.setText(it.title)
+                    detailsET.setText(it.details)
                     startDateBtn.setText(it.startDate.toString())
                     endDateBtn.setText(it.expiredDate.toString())
                     isDone.isChecked=it.isdidit ?:false
@@ -182,7 +202,6 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
         fragmentViewModel.saveUpdate(task)
     }
     override fun OnDateSelected(date: Date) {
-        Log.d(KEY_ID,"OnDateSelected")
 
         task.expiredDate=date
         task.startDate=date

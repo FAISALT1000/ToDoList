@@ -2,6 +2,7 @@ package com.example.todolist.todolistfragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -84,10 +85,11 @@ private fun updateUI(tasks:List<ToDo>){
     private inner class ToDoViewHolder (view:View) : RecyclerView.ViewHolder(view) ,View.OnClickListener {
         private lateinit var task: ToDo
         private val titleTextView: TextView = itemView.findViewById(R.id.task_item)
-        private val endDateBtn: TextView = itemView.findViewById(R.id.end_date_btn)
-        private val starDateBtn: TextView = itemView.findViewById(R.id.start_date_btn)
+        private val endDateBtn: TextView = itemView.findViewById(R.id.task_date_item)
+       // private val starDateBtn: TextView = itemView.findViewById(R.id.start_date_btn)
         private val isDoneImageView: ImageView = itemView.findViewById(R.id.did_it_imageView)
         private val detailsTextView: TextView = itemView.findViewById(R.id.task_details)
+
 
        init {
            itemView.setOnClickListener(this)
@@ -98,7 +100,7 @@ private fun updateUI(tasks:List<ToDo>){
             titleTextView.text=task.title
             endDateBtn.text=task.expiredDate.toString()
             detailsTextView.text=task.details
-           starDateBtn.text=task.startDate.toString()
+          // starDateBtn.text=task.startDate.toString()
 
             isDoneImageView.visibility = if(task.isdidit){
                 View.VISIBLE
@@ -122,7 +124,9 @@ private fun updateUI(tasks:List<ToDo>){
                 }}else if(p0==endDateBtn){
                     Toast.makeText(context,"${task.expiredDate}",Toast.LENGTH_SHORT).show()
 
-                }else if(p0==isDoneImageView){if(task.isdidit){
+                }
+
+                  else if(p0==isDoneImageView){if(task.isdidit){
                     Toast.makeText(context,"${task.isdidit}",Toast.LENGTH_SHORT).show()}
                 }
 
