@@ -20,5 +20,8 @@ class ToDoFragmentViewModel: ViewModel() {
     public fun  saveUpdate(task:ToDo){
         toDoRepo.updateTask(task)
     }
+    fun del(task:ToDo){
+        toDoRepo.deleteTask(task)
+    }
 
 }

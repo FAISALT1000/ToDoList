@@ -16,14 +16,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.DatePickerDialogFragment
 import com.example.todolist.R
 import com.example.todolist.database.ToDo
+import com.example.todolist.database.ToDoDao
 import com.example.todolist.todolistfragment.KEY_ID
+import com.example.todolist.todolistfragment.ToDoListFragment
 import java.time.DayOfWeek
 import java.time.Month
 import java.time.Year
 import java.util.*
 
 const val DO_DAY_KEY="DO date"
-private const val DATE_FORMAT = "EEE, MMM, dd"
+//private const val DATE_FORMAT = "EEE, MMM, dd"
 private const val REQUEST_CONTACT=1
 private const val TAG="maine"
 class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
@@ -32,9 +34,10 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
 
     private lateinit var titleEditText: EditText
     private lateinit var endDateBtn: Button
-    private lateinit var isDone: RadioButton
+    private lateinit var isDone: CheckBox
     private lateinit var startDateBtn: Button
     private lateinit var detailsET:EditText
+    private lateinit var deleteBtn:Button
 
 
 
@@ -94,6 +97,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
         endDateBtn=view.findViewById(R.id.end_date_btn)
         isDone=view.findViewById(R.id.do_radio)
         startDateBtn=view.findViewById(R.id.start_date_btn)
+        deleteBtn=view.findViewById(R.id.delete_btn)
 
 
 
@@ -118,6 +122,16 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
             datePicker.arguments=args
             datePicker.setTargetFragment(this,0)
 
+        }
+        deleteBtn.setOnClickListener{
+          fragmentViewModel.del(task)
+            val fragment=ToDoListFragment()
+            activity?.let {it.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView,fragment)
+                .commit()
+
+            }
         }
 
         super.onStart()

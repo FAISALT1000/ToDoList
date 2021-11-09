@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/new_task"
-        android:icon="@android:drawable/ic_input_add"
-        app:showAsAction="ifRoom|withText" />
+        android:title="add new task" />
+    <item android:title="@string/contact_us_menu" />
+    <item android:title="@string/app_info_menu" />
 </menu>

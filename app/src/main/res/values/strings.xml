@@ -2,14 +2,18 @@
     <string name="app_name">To Do</string>
 
 
+<!--    /+-/+-/-+/-+/+-/-+/+-/-+/+-/-+/-->
     <string name="do_title_hint">Enter a Title</string>
     <string name="do_title_label">Title</string>
     <string name="do_details_label">Details</string>
     <string name="do_details_hint">More Details</string>
     <string name="do_label">already Did it</string>
     <string name="expiry_date">Expiry Date</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_info_menu">App Info</string>
+    <string name="contact_us_menu">Contact us</string>
+
+
+
 
     <!--<string name=""></string>    -->
 
