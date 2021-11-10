@@ -127,9 +127,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
           fragmentViewModel.del(task)
             val fragment=ToDoListFragment()
             activity?.let {it.supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainerView,fragment)
-                .commit()
+                .popBackStack()
 
             }
         }

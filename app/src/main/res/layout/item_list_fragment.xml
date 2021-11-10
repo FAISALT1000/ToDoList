@@ -23,7 +23,7 @@
         android:id="@+id/task_date_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
+        android:layout_marginStart="244dp"
         android:layout_marginTop="4dp"
         android:text="date"
         android:textColor="@android:color/darker_gray"

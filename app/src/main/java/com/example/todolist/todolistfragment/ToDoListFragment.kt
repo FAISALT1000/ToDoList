@@ -111,33 +111,67 @@ private fun updateUI(tasks:List<ToDo>){
          //   day.text
 
 
+            var todaysDate: Date = Date()
+            val currentDate = todaysDate
+            val finalDate = task.expiredDate
+            val date1: Date
+            val date2: Date
+            val dates = SimpleDateFormat("MM/dd/yyyy")
+//            date1 = dates.parse(currentDate)
+//            date2 = dates.parse(finalDate)
+            val difference: Long = (finalDate.time - currentDate.time)
+            val differenceDates = difference / (24 * 60 * 60 * 1000)
+            val dayDifference = differenceDates.toInt()+1
 
-//                val currentDate = ""
-//                val finalDate = ""
-                var todaysDate: Date = Date()
-               // var date2: Date
-               // if (date2.after(endDate))
-                //   date2.text
-             // val sdf = SimpleDateFormat("dd/MM/yyyy")
 
-                if (todaysDate.after(task.expiredDate)&& task.isdidit==true){
 
-                    endDate.text="Done"
+
+            if (dayDifference<0){
+
+                if(task.isdidit==true) {
+                    endDate.text = "Done"
                     //titleTextView.text=task.title
-                    backGraond.setBackgroundColor( resources.getColor(R.color.done))
-                }else if (todaysDate.after(task.expiredDate)&& task.isdidit==false){
-                        endDate.text="try Again you lazy "
-                     backGraond.setBackgroundColor( resources.getColor(R.color.not_done))
+                    backGraond
+                    .setBackgroundColor(resources.getColor(R.color.done_layout))
+                }else{
+                    endDate.text="try Again you lazy "
+                    backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+                }
+            }else if(dayDifference==0){
+                if(task.isdidit==true) {
+                    endDate.text = "Done"
+                    backGraond
+                        .setBackgroundColor(resources.getColor(R.color.done_layout))
+                }else{endDate.text="today is the last day"
+                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+                }}
+            else if (dayDifference>0){
+                if(task.isdidit==true) {
+                    endDate.text= "done"
+                    //titleTextView.text=task.title
+                    backGraond
+                        .setBackgroundColor(resources.getColor(R.color.done_layout))
+                }else{endDate.text="$dayDifference Day Lift"
+                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+                } }
 
-                 }
 
 
-                //val dates = SimpleDateFormat("MM/dd/yyyy")
-                //todaysDate = dates.parse(todaysDate.toString())
-              //  date2 = dates.parse(date2.toString())
-                //val difference: Long = kotlin.math.abs(todaysDate.time - date2.time)
-                //val differenceDates = difference / (24 * 60 * 60 * 1000)
-                //val dayDifference = differenceDates.toString()
+
+//                if (todaysDate.after(task.expiredDate)&& task.isdidit==true){
+//
+//                   endDate.text="Done"
+//                    //titleTextView.text=task.title
+//                    backGraond.setBackgroundColor( resources.getColor(R.color.done_layout))
+//                }else if (todaysDate.after(task.expiredDate)&& task.isdidit==false){
+//                        endDate.text="try Again you lazy "
+//                     backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+//
+//                 }else if (todaysDate==task.expiredDate&& task.isdidit==false){
+//                                 endDate.text="today is the last day"
+//                 }
+
+
 
 
 
