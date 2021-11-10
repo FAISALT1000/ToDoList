@@ -8,6 +8,13 @@ import java.util.*
 interface ToDoDao {
 @Query("SELECT * FROM todo")
 fun getAllTasks():LiveData<List<ToDo>>
+
+@Query("SELECT * FROM todo ORDER BY startDate")
+fun getAllTasksByDate():LiveData<List<ToDo>>
+
+//@Query("SELECT * FROM todo WHERE  ORDER BY startDate ")
+//fun getAllTasksByUnDone():LiveData<List<ToDo>>
+
 @Query("SELECT * FROM todo WHERE id=(:id)")
 fun getTask(id: UUID):LiveData<ToDo?>
 

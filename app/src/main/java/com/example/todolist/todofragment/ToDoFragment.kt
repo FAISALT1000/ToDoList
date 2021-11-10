@@ -38,6 +38,8 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
     private lateinit var startDateBtn: Button
     private lateinit var detailsET:EditText
     private lateinit var deleteBtn:Button
+    private lateinit var saveBtn:Button
+
 
 
 
@@ -98,6 +100,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
         isDone=view.findViewById(R.id.do_radio)
         startDateBtn=view.findViewById(R.id.start_date_btn)
         deleteBtn=view.findViewById(R.id.delete_btn)
+        saveBtn=view.findViewById(R.id.save_btn)
 
 
 
@@ -130,6 +133,14 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
                 .popBackStack()
 
             }
+            saveBtn.setOnClickListener {
+                fragmentViewModel.saveUpdate(task)
+                val fragment=ToDoListFragment()
+                activity?.let {it.supportFragmentManager
+                    .beginTransaction()
+
+
+            }}
         }
 
         super.onStart()
@@ -216,10 +227,10 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
     override fun OnDateSelected(date: Date) {
 
         task.expiredDate=date
-        task.startDate=date
+
 
         endDateBtn.text=date.toString()
-        startDateBtn.text=date.toString()
+
 
     }
 

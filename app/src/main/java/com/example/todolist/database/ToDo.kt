@@ -10,7 +10,7 @@ data class ToDo(
     var title:String="",
     var isdidit:Boolean=false,
     var details:String="",
-    var startDate:Date=Date(),
+    val startDate:Date=Date(),
     var expiredDate:Date=Date(),
     //--------------------------
     var suspect: String = ""

@@ -96,14 +96,13 @@ private fun updateUI(tasks:List<ToDo>){
 
 
        init {
-           itemView.setOnClickListener(this)
-       }
+           itemView.setOnClickListener(this) }
 
         fun bind(task:ToDo){
             this.task=task
 
             titleTextView.text=task.title
-            endDate.text=task.expiredDate.toString()
+//            endDate.text=task.expiredDate.toString()
             detailsTextView.text=task.details
             startDate.text=task.startDate.toString()
             //isDoneImageView.
@@ -111,65 +110,81 @@ private fun updateUI(tasks:List<ToDo>){
          //   day.text
 
 
-            var todaysDate: Date = Date()
+
+//
+          var todaysDate: Date = Date()
+//            if(todaysDate.after(task.expiredDate)&& task.isdidit=t){
+//                endDate.text = "try Again you lazy"
+//                backGraond.setBackgroundColor(resources.getColor(R.color.done_layout))
+//            }
+
+            val dates = SimpleDateFormat("MM/dd/yyyy")
             val currentDate = todaysDate
             val finalDate = task.expiredDate
-            val date1: Date
-            val date2: Date
-            val dates = SimpleDateFormat("MM/dd/yyyy")
-//            date1 = dates.parse(currentDate)
-//            date2 = dates.parse(finalDate)
-            val difference: Long = (finalDate.time - currentDate.time)
+
+           val date1_temp=dates.format(currentDate)
+
+            val  date2_temp=dates.format(finalDate)
+
+            val date1=dates.parse(date1_temp)
+
+            val  date2=dates.parse(date2_temp)
+
+
+           val difference: Long = (date2.time - date1.time)
+           // val difference: Long = (finalDate.time - currentDate.time)
             val differenceDates = difference / (24 * 60 * 60 * 1000)
-            val dayDifference = differenceDates.toInt()+1
+            val dayDifference = differenceDates.toInt()
+
+            endDate.text = "$dayDifference day lift"
 
 
 
 
-            if (dayDifference<0){
-
-                if(task.isdidit==true) {
-                    endDate.text = "Done"
-                    //titleTextView.text=task.title
-                    backGraond
-                    .setBackgroundColor(resources.getColor(R.color.done_layout))
-                }else{
-                    endDate.text="try Again you lazy "
-                    backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
-                }
-            }else if(dayDifference==0){
-                if(task.isdidit==true) {
-                    endDate.text = "Done"
-                    backGraond
-                        .setBackgroundColor(resources.getColor(R.color.done_layout))
-                }else{endDate.text="today is the last day"
-                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
-                }}
-            else if (dayDifference>0){
-                if(task.isdidit==true) {
-                    endDate.text= "done"
-                    //titleTextView.text=task.title
-                    backGraond
-                        .setBackgroundColor(resources.getColor(R.color.done_layout))
-                }else{endDate.text="$dayDifference Day Lift"
-                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
-                } }
-
-
-
-
-//                if (todaysDate.after(task.expiredDate)&& task.isdidit==true){
+//            if (dayDifference<0){
 //
-//                   endDate.text="Done"
+//                if(task.isdidit==true) {
+//                    endDate.text = "Done"
 //                    //titleTextView.text=task.title
-//                    backGraond.setBackgroundColor( resources.getColor(R.color.done_layout))
-//                }else if (todaysDate.after(task.expiredDate)&& task.isdidit==false){
-//                        endDate.text="try Again you lazy "
-//                     backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
-//
-//                 }else if (todaysDate==task.expiredDate&& task.isdidit==false){
-//                                 endDate.text="today is the last day"
-//                 }
+//                    backGraond
+//                    .setBackgroundColor(resources.getColor(R.color.done_layout))
+//                }else{
+//                    endDate.text="try Again you lazy "
+//                    backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+//                }
+//            }else if(dayDifference==0){
+//                if(task.isdidit==true) {
+//                    endDate.text = "Don1e"
+//                    backGraond.setBackgroundColor(resources.getColor(R.color.done_layout))
+//                }else{
+//                    endDate.text="today is the last day"
+//                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+//                }}
+//            else if (dayDifference>0){
+//                if(task.isdidit==true) {
+//                    endDate.text= "done"
+//                    //titleTextView.text=task.title
+//                    backGraond
+//                        .setBackgroundColor(resources.getColor(R.color.done_layout))
+//                }else{endDate.text="$dayDifference Day Lift"
+//                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+//                } }
+
+
+
+
+                if (todaysDate.after(task.expiredDate)&& task.isdidit==true){
+
+                   endDate.text="Done"
+                    //titleTextView.text=task.title
+                    backGraond.setBackgroundColor( resources.getColor(R.color.done_layout))
+                }else if (todaysDate.after(task.expiredDate)&& task.isdidit==false){
+                        endDate.text="try Again you lazy "
+                     backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+
+                 }else if (todaysDate==task.expiredDate&& task.isdidit==false){
+                                 endDate.text="today is the last day"
+                 }
 
 
 
