@@ -141,39 +141,39 @@ private fun updateUI(tasks:List<ToDo>){
 
 
 
-//            if (dayDifference<0){
-//
-//                if(task.isdidit==true) {
-//                    endDate.text = "Done"
-//                    //titleTextView.text=task.title
-//                    backGraond
-//                    .setBackgroundColor(resources.getColor(R.color.done_layout))
-//                }else{
-//                    endDate.text="try Again you lazy "
-//                    backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
-//                }
-//            }else if(dayDifference==0){
-//                if(task.isdidit==true) {
-//                    endDate.text = "Don1e"
-//                    backGraond.setBackgroundColor(resources.getColor(R.color.done_layout))
-//                }else{
-//                    endDate.text="today is the last day"
-//                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
-//                }}
-//            else if (dayDifference>0){
-//                if(task.isdidit==true) {
-//                    endDate.text= "done"
-//                    //titleTextView.text=task.title
-//                    backGraond
-//                        .setBackgroundColor(resources.getColor(R.color.done_layout))
-//                }else{endDate.text="$dayDifference Day Lift"
-//                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
-//                } }
+            if (dayDifference<0){
+
+                if(task.isdidit==true) {
+                    endDate.text = "Done"
+                    //titleTextView.text=task.title
+                    backGraond
+                    .setBackgroundColor(resources.getColor(R.color.done_layout))
+                }else{
+                    endDate.text="try Again you lazy "
+                    backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+                }
+            }else if(dayDifference==0){
+                if(task.isdidit==true) {
+                    endDate.text = "Done"
+                    backGraond.setBackgroundColor(resources.getColor(R.color.done_layout))
+                }else{
+                    endDate.text="today is the last day"
+                    backGraond.setBackgroundColor( resources.getColor(R.color.today_is_the_last_day_layout))
+                }}
+            else if (dayDifference>0){
+                if(task.isdidit==true) {
+                    endDate.text= "done"
+                    //titleTextView.text=task.title
+                    backGraond
+                        .setBackgroundColor(resources.getColor(R.color.done_layout))
+                }else{endDate.text="$dayDifference Day Lift"
+                    //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
+                } }
 
 
 
 
-                if (todaysDate.after(task.expiredDate)&& task.isdidit==true){
+           /*     if (todaysDate.after(task.expiredDate)&& task.isdidit==true){
 
                    endDate.text="Done"
                     //titleTextView.text=task.title
@@ -184,7 +184,7 @@ private fun updateUI(tasks:List<ToDo>){
 
                  }else if (todaysDate==task.expiredDate&& task.isdidit==false){
                                  endDate.text="today is the last day"
-                 }
+                 }*/
 
 
 
