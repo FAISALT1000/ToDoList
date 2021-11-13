@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="done_layout">#9070F161</color>
+    <color name="done_layout">#bbe06c</color>
     <color name="not_done_layout">#BFF11212</color>
 
     <color name="today_is_the_last_day_layout">#DDEFE081</color>

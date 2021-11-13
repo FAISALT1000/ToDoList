@@ -19,8 +19,12 @@ class ToDoRepo private constructor(context: Context){
 
     private val toDoDao= database.ToDoDao()
     private val executor = Executors.newSingleThreadExecutor()
-
-    fun getAllTask():LiveData<List<ToDo>> =toDoDao.getAllTasks()
+//======================================================================
+    fun getAllTask():LiveData<List<ToDo>> {
+        val tyr=toDoDao.getAllTasks()
+       return tyr
+    }
+    fun homManyTaskDone():LiveData<List<ToDo>> =toDoDao.howManyTaskDone()
 
     fun getTask(id:UUID):LiveData<ToDo?>{
         return toDoDao.getTask(id)
@@ -31,7 +35,33 @@ class ToDoRepo private constructor(context: Context){
         }
     }
 
+
+
+    fun getAllTasksByExpiredDate():LiveData<List<ToDo>>{
+        return toDoDao.getAllTasksByExpiredDate()
+    }
+    fun getAllTasksByAToZ():LiveData<List<ToDo>>{
+        return toDoDao.getAllTasksByAToZ()
+    }
+    fun howManyTaskDone():LiveData<List<ToDo>>{
+        return toDoDao.howManyTaskDone()
+    }
+
+
+
+    fun getAllTasksByDone():LiveData<List<ToDo>>{
+        return toDoDao.getAllTasksByDone()
+    }
+    fun getAllTasksByUnDone():LiveData<List<ToDo>>{
+        return toDoDao.getAllTasksByUnDone()
+    }
+
+
+
+
+
     fun addTask(task: ToDo){
+
         executor.execute {
             toDoDao.addTask(task)
         }

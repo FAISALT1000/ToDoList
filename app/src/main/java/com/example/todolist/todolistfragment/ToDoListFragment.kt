@@ -1,6 +1,5 @@
 package com.example.todolist.todolistfragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -11,10 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.database.ToDo
-import com.example.todolist.database.ToDoRepo
 import com.example.todolist.todofragment.ToDoFragment
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.lifecycle.Observer
+import com.example.todolist.todofragment.addNewTaskFragment
 
 const val KEY_ID="to do fragment"
 class ToDoListFragment : Fragment() {
@@ -35,24 +35,50 @@ class ToDoListFragment : Fragment() {
 //---------------------------------------------------------------------------------------------------
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.new_task->{
-                val task=ToDo()
+        return when(item.itemId) {
+            R.id.new_task -> {
+                val task = ToDo()
                 toDoListViewModel.addTask(task)
 
-                val args=Bundle()
-                args.putSerializable(KEY_ID,task.id)
-                val fragment=ToDoFragment()
-                fragment.arguments=args
-                activity?.let{
+                val args = Bundle()
+                args.putSerializable(KEY_ID, task.id)
+                val fragment = addNewTaskFragment()
+                fragment.arguments = args
+                activity?.let {
                     it.supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView,fragment)
-                    .addToBackStack(null)
-                    .commit()}
+                        .replace(R.id.fragmentContainerView, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+                true
+            }
 
-          true  }
+            R.id.az -> {
+                toDoListViewModel.getAllTasksByAToZ().observe(
+                    viewLifecycleOwner, Observer{updateUI(it)})
+                true}
+            R.id.done->{
+                toDoListViewModel.homManyTaskDone().observe(
+                    viewLifecycleOwner, Observer{updateUI(it)})
+                true}
+            R.id.last->{
+                toDoListViewModel.getAllTasksByExpiredDate().observe(
+                    viewLifecycleOwner, Observer{updateUI(it)})
+                true}
+
+            R.id.done -> {
+                toDoListViewModel.getAllTasksByAToZ().observe(
+                    viewLifecycleOwner, Observer{updateUI(it)})
+                true}R.id.task_done -> {
+                toDoListViewModel.getAllTasksByDone().observe(
+                    viewLifecycleOwner, Observer{updateUI(it)})
+                true}R.id.task_not_done -> {
+                toDoListViewModel.getAllTasksByUnDone().observe(
+                    viewLifecycleOwner, Observer{updateUI(it)})
+                true}
             else-> super.onOptionsItemSelected(item)
         }
+
 
     }
 //---------------------------------------------------------------------------------------------------
@@ -89,21 +115,23 @@ private fun updateUI(tasks:List<ToDo>){
         private val titleTextView: TextView = itemView.findViewById(R.id.task_item)
         private val endDate: TextView = itemView.findViewById(R.id.task_date_item)
         private val startDate: TextView = itemView.findViewById(R.id.task_date_item)
-        private val day: TextView = itemView.findViewById(R.id.reday_tv)
-        private val backGraond:ConstraintLayout=itemView.findViewById(R.id.con)
+        private val backGraond:ConstraintLayout=itemView.findViewById(R.id.con2)
         private val isDoneImageView: ImageView = itemView.findViewById(R.id.did_it_imageView)
         private val detailsTextView: TextView = itemView.findViewById(R.id.task_details)
+
 
 
        init {
            itemView.setOnClickListener(this) }
 
         fun bind(task:ToDo){
+
             this.task=task
 
             titleTextView.text=task.title
 //            endDate.text=task.expiredDate.toString()
             detailsTextView.text=task.details
+
             startDate.text=task.startDate.toString()
             //isDoneImageView.
 
@@ -111,14 +139,14 @@ private fun updateUI(tasks:List<ToDo>){
 
 
 
-//
+            val dates = SimpleDateFormat("MM/dd/yyyy")
           var todaysDate: Date = Date()
 //            if(todaysDate.after(task.expiredDate)&& task.isdidit=t){
 //                endDate.text = "try Again you lazy"
 //                backGraond.setBackgroundColor(resources.getColor(R.color.done_layout))
 //            }
 
-            val dates = SimpleDateFormat("MM/dd/yyyy")
+
             val currentDate = todaysDate
             val finalDate = task.expiredDate
 
@@ -136,7 +164,7 @@ private fun updateUI(tasks:List<ToDo>){
             val differenceDates = difference / (24 * 60 * 60 * 1000)
             val dayDifference = differenceDates.toInt()
 
-            endDate.text = "$dayDifference day lift"
+
 
 
 
@@ -157,7 +185,7 @@ private fun updateUI(tasks:List<ToDo>){
                     endDate.text = "Done"
                     backGraond.setBackgroundColor(resources.getColor(R.color.done_layout))
                 }else{
-                    endDate.text="today is the last day"
+                    endDate.text="today"
                     backGraond.setBackgroundColor( resources.getColor(R.color.today_is_the_last_day_layout))
                 }}
             else if (dayDifference>0){
@@ -166,7 +194,7 @@ private fun updateUI(tasks:List<ToDo>){
                     //titleTextView.text=task.title
                     backGraond
                         .setBackgroundColor(resources.getColor(R.color.done_layout))
-                }else{endDate.text="$dayDifference Day Lift"
+                }else{ endDate.text = "$dayDifference day lift"
                     //backGraond.setBackgroundColor( resources.getColor(R.color.not_done_layout))
                 } }
 
@@ -229,6 +257,7 @@ private fun updateUI(tasks:List<ToDo>){
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoViewHolder {
           val view=layoutInflater.inflate(R.layout.item_list_fragment,parent,false)
             return ToDoViewHolder(view)
+
         }
 
         override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {

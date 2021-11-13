@@ -2,7 +2,7 @@
     <string name="app_name">To Do</string>
 
 
-<!--    /+-/+-/-+/-+/+-/-+/+-/-+/+-/-+/-->
+    <!--    /+-/+-/-+/-+/+-/-+/+-/-+/+-/-+/-->
     <string name="do_title_hint">Enter a Title</string>
     <string name="do_title_label">Title</string>
     <string name="do_details_label">Details</string>
@@ -11,6 +11,11 @@
     <string name="expiry_date">Expiry Date</string>
     <string name="app_info_menu">App Info</string>
     <string name="contact_us_menu">Contact us</string>
+    <string name="save_btn">SAVE</string>
+    <string name="delete_btn">DELETE</string>
+    <string name="add_new_task_btn">Add</string>
+
+
 
 
 

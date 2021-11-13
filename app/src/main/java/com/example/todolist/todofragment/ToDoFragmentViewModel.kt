@@ -10,7 +10,7 @@ class ToDoFragmentViewModel: ViewModel() {
     private val toDoRepo=ToDoRepo.get()
     private val todoIdLiveData=MutableLiveData<UUID>()
 
-      var toDoLiveData:LiveData<ToDo?> =
+     public var toDoLiveData:LiveData<ToDo?> =
           Transformations.switchMap(todoIdLiveData){
               toDoRepo.getTask(it)
           }
@@ -20,7 +20,7 @@ class ToDoFragmentViewModel: ViewModel() {
     public fun  saveUpdate(task:ToDo){
         toDoRepo.updateTask(task)
     }
-    fun del(task:ToDo){
+   public fun del(task:ToDo){
         toDoRepo.deleteTask(task)
     }
 

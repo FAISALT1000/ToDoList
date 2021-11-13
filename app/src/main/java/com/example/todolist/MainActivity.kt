@@ -20,6 +20,6 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragmentContainerView,fragment)
                 .commit()
         }
-    }
+   }
 
 }

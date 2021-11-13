@@ -26,12 +26,12 @@ import java.time.Year
 import java.util.*
 import kotlin.concurrent.timerTask
 
-const val DO_DAY_KEY="DO date"
+
 //val dates = SimpleDateFormat("MM/dd/yyyy")
 private const val DATE_FORMAT = ("MM/dd/yyyy")
 private const val REQUEST_CONTACT=1
 private const val TAG="maine"
-class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
+class addNewTaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
 
     private lateinit var task: ToDo
 
@@ -51,7 +51,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode !=Activity.RESULT_OK){
             return
-     }
+        }
 //-------------------------------double checking -------------------------------------------
         if (requestCode== REQUEST_CONTACT && data!=null){
             val contactsURI= data.data
@@ -84,32 +84,32 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
     }
 
     private  val fragmentViewModel
-    by lazy{ ViewModelProvider(this)
-        .get(ToDoFragmentViewModel::class.java)}
+            by lazy{ ViewModelProvider(this)
+                .get(ToDoFragmentViewModel::class.java)}
 
 
     override fun onCreateView(
 
 
-    inflater: LayoutInflater,
+        inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =inflater.inflate(R.layout.fragment_to_do,container,false)
+        val view =inflater.inflate(R.layout.fragment_add_new_task,container,false)
         titleEditText=view.findViewById(R.id.title_tv)
         detailsET=view.findViewById(R.id.details_mt)
         endDateBtn=view.findViewById(R.id.end_date_btn)
         isDone=view.findViewById(R.id.do_radio)
         startDateBtn=view.findViewById(R.id.start_date_btn)
-        deleteBtn=view.findViewById(R.id.delete_btn)
+
         saveBtn=view.findViewById(R.id.save_btn)
 
 
 
 
         startDateBtn.apply {
-           // text=task.startDate.toString()
+            // text=task.startDate.toString()
             isEnabled=false
         }
         return view
@@ -130,19 +130,13 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
             datePicker.setTargetFragment(this,0)
 
         }
-        deleteBtn.setOnClickListener{
-          fragmentViewModel.del(task)
-            val fragment=ToDoListFragment()
-            activity?.let {it.supportFragmentManager
-                .popBackStack()
 
-            }}
-            saveBtn.setOnClickListener {
-                fragmentViewModel.saveUpdate(task)
-                val fragment=ToDoListFragment()
-                activity?.supportFragmentManager
-                    ?.beginTransaction()?.replace(R.id.fragmentContainerView,fragment)
-                    ?.addToBackStack(null)?.commit()
+        saveBtn.setOnClickListener {
+            fragmentViewModel.saveUpdate(task)
+            val fragment=ToDoListFragment()
+            activity?.supportFragmentManager
+                ?.beginTransaction()?.replace(R.id.fragmentContainerView,fragment)
+                ?.addToBackStack(null)?.commit()
 
 
 
@@ -155,7 +149,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-               Log.d("AAA",p0.toString())
+                Log.d("AAA",p0.toString())
                 task.title=p0.toString()
             }
 
@@ -220,13 +214,13 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
                     task=it
                     titleEditText.setText(it.title)
                     detailsET.setText(it.details)
-                   // startDateBtn.setText(it.startDate.toString())
+                    // startDateBtn.setText(it.startDate.toString())
                     endDateBtn.setText(it.expiredDate.toString())
                     isDone.isChecked=it.isdidit ?:false
 
                 }
-               // startDateBtn.setText(date2.toString())
-              //  startDateBtn.setText(date2)
+                // startDateBtn.setText(date2.toString())
+                //  startDateBtn.setText(date2)
             }
         )
 
@@ -241,7 +235,7 @@ class ToDoFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
 
 
 
-       fragmentViewModel.saveUpdate(task)
+            fragmentViewModel.saveUpdate(task)
         }
         super.onStop()}
     override fun OnDateSelected(date: Date) {
