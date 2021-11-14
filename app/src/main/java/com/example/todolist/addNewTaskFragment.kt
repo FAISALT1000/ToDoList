@@ -34,11 +34,10 @@ private const val TAG="maine"
 class addNewTaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBack {
 
     private lateinit var task: ToDo
-//ghfgn
     private lateinit var titleEditText: EditText
     private lateinit var endDateBtn: Button
     private lateinit var isDone: CheckBox
-    private lateinit var startDateBtn: Button
+   // private lateinit var startDateBtn: Button
     private lateinit var detailsET:EditText
    // private lateinit var deleteBtn:Button
     private lateinit var saveBtn:Button
@@ -101,17 +100,17 @@ class addNewTaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBac
         detailsET=view.findViewById(R.id.details_mt)
         endDateBtn=view.findViewById(R.id.end_date_btn)
         isDone=view.findViewById(R.id.do_radio)
-        startDateBtn=view.findViewById(R.id.start_date_btn)
+      //  startDateBtn=view.findViewById(R.id.start_date_btn)
 
         saveBtn=view.findViewById(R.id.save_btn)
 
 
 
 
-        startDateBtn.apply {
-            // text=task.startDate.toString()
-            isEnabled=false
-        }
+//        startDateBtn.apply {
+//            // text=task.startDate.toString()
+//            isEnabled=false
+//        }
         return view
     }
 
@@ -206,7 +205,7 @@ class addNewTaskFragment : Fragment(),DatePickerDialogFragment.DatePickerCallBac
 
         val  date2_temp=dates.format(finalDate)
         val  date2=dates.parse(date2_temp)
-        startDateBtn.setText(android.text.format.DateFormat.format(DATE_FORMAT,task.startDate))
+      //  startDateBtn.setText(android.text.format.DateFormat.format(DATE_FORMAT,task.startDate))
         super.onViewCreated(view, savedInstanceState)
         fragmentViewModel.toDoLiveData.observe(
             viewLifecycleOwner,{
